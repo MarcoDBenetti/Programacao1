@@ -1,0 +1,73 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Make build directory",
+            "type": "shell",
+            "command": "mkdir",
+            "args": [
+                "-p",
+                "build/"
+            ],
+            "presentation": {
+                "echo": false,
+                "showReuseMessage": false
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "label": "Compile",
+            "type": "shell",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "${fileBasename}",
+                "-o",
+                "${workspaceFolder}/build/${fileBasenameNoExtension}",
+                "-lm"
+            ],
+            "problemMatcher": "$gcc",
+            "group": {
+                "kind": "build",
+                "isDefault": true,
+            },
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "presentation": {
+                "focus": true,
+                "clear": true,
+                "echo": false,
+                "showReuseMessage": false
+            },
+            "dependsOn": [
+                "Make build directory"
+            ]
+        },
+        {
+            "label": "Compile & Run",
+            "type": "shell",
+            "command": "${workspaceFolder}/build/${fileBasenameNoExtension}",
+            "problemMatcher": [],
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
+            "presentation": {
+                "focus": true,
+                "clear": false,
+                "echo": false,
+                "showReuseMessage": false
+            },
+            "dependsOn": [
+                "Compile"
+            ]
+        },
+    ]
+}
