@@ -58,6 +58,7 @@ int main()
         case 3:
         case 23:
             printf("rd, ");
+            break;
         default:
             printf("th, ");
             break;
