@@ -4,11 +4,9 @@
 int main()
 {
     int n, dezenas, unidades;
-
     printf("Entre com um inteiro de 1 a 99: ");
     scanf("%d", &n);
     printf("Número por extenso: \"");
-
     dezenas = n / 10;
     unidades = n % 10;
     if (dezenas == 1) {
@@ -63,10 +61,9 @@ int main()
         if (dezenas > 1 && unidades > 1) {
             printf(" e ");
         }
-
         switch (unidades) {
             case (1):
-                printf("um.");
+                printf("um");
                 break;
             case (2):
                 printf("dois");
@@ -98,6 +95,6 @@ int main()
             printf("Zero");
         }
     }
-
     printf("\"");
+    return 0;
 }
