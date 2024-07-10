@@ -4,6 +4,7 @@
 bool eh_bissexto(int ano);
 bool eh_data_valida(int dia, int mes, int ano);
 int ordinal_dia(int dia, int mes, int ano);
+int num_dias(int mes, int ano);
 
 int main()
 {
@@ -11,9 +12,9 @@ int main()
     printf("Informe uma data dd/mm/aaaa: ");
     scanf("%d/%d/%d", &dia, &mes, &ano);
     if (eh_data_valida(dia, mes, ano)) {
-        printf("É o %dº dia do ano.", ordinal_dia(dia, mes, ano));
+        printf("É o %dº dia do ano.\n", ordinal_dia(dia, mes, ano));
     } else
-        printf("Informe uma data válida.");
+        printf("Informe uma data válida.\n");
     return 0;
 }
 
@@ -22,29 +23,30 @@ bool eh_bissexto(int ano)
     return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
 }
 
+int num_dias(int mes, int ano)
+{
+    switch (mes) {
+        case 2:
+            return eh_bissexto(ano) ? 29 : 28;
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            return 30;
+        default:
+            return 31;
+    }
+}
 bool eh_data_valida(int dia, int mes, int ano)
 {
-    if (mes <= 12) {
-        if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
-            if (dia <= 30)
-                return true;
-        } else if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10 || mes == 12) {
-            if (dia <= 31)
-                return true;
-        } else if (mes == 2) {
-            if (dia <= 28)
-                return true;
-            else if (eh_bissexto(ano) && dia <= 29)
-                return true;
-            ;
-        }
-    }
-    return false;
+    if (mes >= 1 && mes <= 12)
+        return true;
+    return 1 <= dia && dia <= num_dias(mes, ano);
 }
 
 int ordinal_dia(int dia, int mes, int ano)
 {
-    int ordinal = 0;
+    int ordinal = dia;
     switch (mes - 1) {
         case 11:
             ordinal += 30;
@@ -72,6 +74,5 @@ int ordinal_dia(int dia, int mes, int ano)
         case 1:
             ordinal += 31;
     }
-    ordinal += dia;
     return ordinal;
 }
